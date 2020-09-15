@@ -1,0 +1,88 @@
+1- ##INSTALL MODULES
+npm install express --save
+npm install --save express-handlebars
+npm install --save body-parser
+npm install --save mongoose
+
+2- ##ESQUELETON
+    
+    Criar app.js - arquivo main
+    // Carregando módulos
+        const express = require("express")
+        const express = require("express-handlebars")
+        const bodyParser = require("body-parser")
+        const app = express()
+        //const mongoose = require("mongoose")
+    // Configurações
+
+    // Rotas
+
+    // Outros
+    const PORT = 8081
+    app.listen(PORT,() => {
+        console.log("Servidor rodando!")
+    })
+
+3 - ##MODELS
+    
+    Criar pasta models
+    Criar pasta rotas
+    Criar pasta views -> Criar pasta layouts dentro
+    Criar main.handlebars
+    
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        {{{body}}}
+    </body>
+    </html>
+
+4 - ##BODY PARSER E HANDLEBARS EM //CONFIGURAÇÕES
+
+    // Body Parser
+        app.use(bodyParser.urlencoded({extended: true}))
+        app.use(bodyParser.json())
+    // Handlebars
+        app.engine("handlebars", handlebars({defaultLayout: "main"}))
+        app.set("view engine", "handlebars")
+
+5 - ##CRIAR ARQUIVO DE ROTAS NA PASTA ROTAS - main.json
+
+    const express = require("express")
+    const router = express.Router()
+
+    router.get("/", (req,res) => {
+        res.send("Página Principal")
+    })
+
+    router.get("/posts", (req,res) => {
+        res.send("Página de posts")
+    })
+
+    router.get("/categorias", (req,res) => {
+        res.send("Página de categorias")
+    })
+
+    module.exports = router
+
+**Em app.js
+    const admin = require("./routes/admin") // Para chamar o arquivo de rotas
+    app.use("/admin", admin)
+
+6 - ##BOTSTRAP
+    Criar a pasta public e salvar os arquivos bootstrap nela
+    const path = require("path")
+    app.use(express.static(path.join(__dirname,"public")))
+    <link rel="stylesheet" href="/css/bootstrap.css"> //em main.handlebars
+    ADICIONAR ABAIXO DO BODY
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+
